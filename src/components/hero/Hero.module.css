@@ -1,0 +1,370 @@
+/* Hero Section */
+.hero {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.mainSlider {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f5f5f5;
+}
+
+.sliderTrack {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  flex-shrink: 0;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border: none;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  font-size: 32px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.navButton:hover {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.navButtonPrev {
+  left: 10px;
+}
+
+.navButtonNext {
+  right: 10px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 320px;
+  flex-shrink: 0;
+}
+
+.adCard {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 230px;
+}
+
+.adCard:first-child {
+  background: linear-gradient(135deg, #e8c4a0 0%, #d4a574 100%);
+}
+
+.adCard:last-child {
+  background: linear-gradient(135deg, #2d5a3a 0%, #1a3d28 100%);
+}
+
+.adImage {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  object-fit: cover;
+}
+
+.adHeader {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+}
+
+.brandName {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0066b3;
+  margin-bottom: 2px;
+  font-family: Arial, sans-serif;
+}
+
+.tagline {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  color: #0066b3;
+  letter-spacing: 0.5px;
+}
+
+.adTitle {
+  position: absolute;
+  top: 75px;
+  left: 20px;
+  z-index: 2;
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.1;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.ctaButton {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 2;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s ease;
+}
+
+.ctaButton:hover {
+  transform: translateX(3px);
+}
+
+.arrow {
+  font-size: 16px;
+}
+
+.vichyBadge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50px;
+  padding: 8px 16px 8px 8px;
+  backdrop-filter: blur(5px);
+}
+
+.badgeIcon {
+  width: 28px;
+  height: 28px;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.badgeText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.badgeMain {
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.3px;
+}
+
+.badgeSub {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.3px;
+}
+
+.vichyBrand {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2;
+  text-align: right;
+}
+
+.vichyName {
+  display: block;
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.vichySubtitle {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 1.5px;
+  margin-top: 2px;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column;
+  }
+
+  .mainSlider {
+    height: 400px;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .adCard {
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .mainSlider {
+    height: 350px;
+  }
+
+  .sidebar {
+    flex-direction: column;
+  }
+
+  .adCard {
+    height: 200px;
+  }
+
+  .navButton {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .adTitle {
+    font-size: 28px;
+    top: 65px;
+  }
+
+  .vichyName {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .mainSlider {
+    height: 280px;
+  }
+
+  .adCard {
+    height: 180px;
+  }
+
+  .navButton {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+
+  .navButtonPrev {
+    left: 5px;
+  }
+
+  .navButtonNext {
+    right: 5px;
+  }
+
+  .adHeader {
+    top: 15px;
+    left: 15px;
+  }
+
+  .brandName {
+    font-size: 20px;
+  }
+
+  .tagline {
+    font-size: 8px;
+  }
+
+  .adTitle {
+    font-size: 24px;
+    top: 55px;
+    left: 15px;
+  }
+
+  .ctaButton {
+    bottom: 15px;
+    left: 15px;
+    font-size: 12px;
+  }
+
+  .vichyBadge {
+    top: 15px;
+    right: 15px;
+    padding: 6px 12px 6px 6px;
+  }
+
+  .badgeIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .badgeMain {
+    font-size: 9px;
+  }
+
+  .badgeSub {
+    font-size: 8px;
+  }
+
+  .vichyBrand {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .vichyName {
+    font-size: 36px;
+  }
+
+  .vichySubtitle {
+    font-size: 10px;
+  }
+}

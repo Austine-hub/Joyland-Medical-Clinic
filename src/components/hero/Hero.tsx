@@ -1,96 +1,86 @@
 //src/components/hero/Hero.tsx
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Hero.module.css';
+
+const SERVICES = [
+  { icon: '🏥', title: 'Outpatient', desc: 'General consultations' },
+  { icon: '💉', title: 'Immunization', desc: 'Vaccines & protection' },
+  { icon: '🤰', title: 'Antenatal', desc: 'Prenatal care' },
+  { icon: '👶', title: 'Postnatal', desc: 'After-birth support' },
+  { icon: '👨‍👩‍👧', title: 'Family Planning', desc: 'Reproductive health' },
+  { icon: '⚕️', title: 'Minor Surgery', desc: 'Outpatient procedures' },
+  { icon: '🩺', title: 'Gynaecology', desc: 'Women\'s health' },
+  { icon: '💬', title: 'Counselling', desc: 'Mental wellness' },
+  { icon: '🦴', title: 'Physiotherapy', desc: 'Rehabilitation care' }
+];
 
 const Hero: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 2;
+  const slides = ['/hero/hero1.jpg', '/hero/hero2.jpg', '/hero/hero3.jpg', '/hero/hero4.jpg'];
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  };
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentSlide(prev => (prev + 1) % slides.length), 5000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  const navigate = (direction: number) => {
+    setCurrentSlide(prev => (prev + direction + slides.length) % slides.length);
   };
 
   return (
     <section className={styles.hero}>
       <div className={styles.mainSlider}>
-        <div 
-          className={styles.sliderTrack}
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-        >
-          <div className={styles.slide}>
-            <img 
-              src="/hero/hero1.jpg" 
-              alt="Happy couple embracing"
-              className={styles.heroImage}
-            />
-          </div>
-          <div className={styles.slide}>
-            <img 
-              src="/hero/hero2.jpg" 
-              alt="Smiling couple in white"
-              className={styles.heroImage}
-            />
-          </div>
+        <div className={styles.sliderTrack} style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+          {slides.map((src, i) => (
+            <div key={i} className={styles.slide}>
+              <img src={src} alt={`Healthcare slide ${i + 1}`} className={styles.heroImage} />
+            </div>
+          ))}
         </div>
-
-        <button 
-          className={`${styles.navButton} ${styles.navButtonPrev}`}
-          onClick={prevSlide}
-          aria-label="Previous slide"
-        >
-          ‹
-        </button>
-        <button 
-          className={`${styles.navButton} ${styles.navButtonNext}`}
-          onClick={nextSlide}
-          aria-label="Next slide"
-        >
-          ›
-        </button>
+        <button className={`${styles.navButton} ${styles.navButtonPrev}`} onClick={() => navigate(-1)} aria-label="Previous">‹</button>
+        <button className={`${styles.navButton} ${styles.navButtonNext}`} onClick={() => navigate(1)} aria-label="Next">›</button>
+        <div className={styles.indicators}>
+          {slides.map((_, i) => (
+            <button key={i} className={`${styles.indicator} ${i === currentSlide ? styles.active : ''}`} onClick={() => setCurrentSlide(i)} aria-label={`Go to slide ${i + 1}`} />
+          ))}
+        </div>
       </div>
 
       <aside className={styles.sidebar}>
-        <div className={styles.adCard}>
-          <div className={styles.adHeader}>
-            <span className={styles.brandName}>Ecuerin</span>
-            <span className={styles.tagline}>SKIN CARE THAT SHOWS</span>
+        <div className={styles.servicesCard}>
+          <div className={styles.cardHeader}>
+            <h3 className={styles.cardTitle}>Our Services</h3>
+            <p className={styles.cardSubtitle}>Comprehensive Healthcare Solutions</p>
           </div>
-          <h3 className={styles.adTitle}>Your New<br />Daily Routine</h3>
-          <button className={styles.ctaButton}>
-            BUY NOW <span className={styles.arrow}>▸</span>
-          </button>
-          <img 
-            src="/hero/eucerin-ad.jpg" 
-            alt="Woman with under-eye patches"
-            className={styles.adImage}
-          />
+          <div className={styles.servicesGrid}>
+            {SERVICES.map((service, i) => (
+              <div key={i} className={styles.serviceItem}>
+                <span className={styles.serviceIcon}>{service.icon}</span>
+                <div className={styles.serviceText}>
+                  <h4 className={styles.serviceName}>{service.title}</h4>
+                  <p className={styles.serviceDesc}>{service.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className={styles.adCard}>
-          <div className={styles.vichyBadge}>
+        <div className={styles.pharmacyCard}>
+          <div className={styles.pharmacyBadge}>
             <svg className={styles.badgeIcon} viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L12 12L12 22M12 12C16 10 20 8 20 4M12 12C8 10 4 8 4 4" stroke="currentColor" strokeWidth="2"/>
+              <path d="M12 2v20M2 12h20M12 6l4 6-4 6-4-6z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <div className={styles.badgeText}>
-              <span className={styles.badgeMain}>HYALURONIC</span>
-              <span className={styles.badgeSub}>WATER GEL</span>
-            </div>
+            <span className={styles.badgeText}>24/7</span>
           </div>
-          <div className={styles.vichyBrand}>
-            <span className={styles.vichyName}>VICHY</span>
-            <span className={styles.vichySubtitle}>LABORATOIRES</span>
+          <div className={styles.pharmacyContent}>
+            <h3 className={styles.pharmacyTitle}>Pharmacy</h3>
+            <p className={styles.pharmacyDesc}>Quality medications & expert guidance</p>
+            <button className={styles.ctaButton}>
+              Visit Pharmacy <span className={styles.arrow}>→</span>
+            </button>
           </div>
-          <img 
-            src="/hero/vichy-ad.jpg" 
-            alt="Woman with aloe vera leaf"
-            className={styles.adImage}
-          />
         </div>
       </aside>
     </section>

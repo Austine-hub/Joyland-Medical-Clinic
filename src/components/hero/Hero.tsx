@@ -1,10 +1,8 @@
-//src/components/Hero/Hero.tsx
-
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styles from './Hero.module.css';
-
+import Link from "next/link";
 import {
   Hospital,
   Syringe,
@@ -29,96 +27,93 @@ const SERVICES = [
   { icon: Bone, title: 'Physiotherapy', desc: 'Rehabilitation care' },
 ];
 
+const SLIDES = [
+  
+  '/hero/hero1.jpg',
+  '/hero/hero2.jpg',
+  '/aboutUs/consultation.jpg',
+  '/aboutUs/pharmacy.jpg',
+  '/hero/hero3.jpg',
+  '/aboutUs/lab.jpg',
+  '/hero/hero4.jpg',
+  '/hero/hero5.jpg',
+  '/aboutUs/MCH.jpg',
+];
+
 const Hero: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [
-    '/hero/hero1.jpg',
-    '/hero/hero2.jpg',
-    '/hero/hero3.jpg',
-    '/hero/hero4.jpg',
-    '/hero/hero5.jpg',
-  ];
+
+  const navigate = useCallback((direction: number) => {
+    setCurrentSlide((prev) => (prev + direction + SLIDES.length) % SLIDES.length);
+  }, []);
 
   useEffect(() => {
-    const timer = setInterval(
-      () => setCurrentSlide((prev) => (prev + 1) % slides.length),
-      5000
-    );
+    const timer = setInterval(() => navigate(1), 5000);
     return () => clearInterval(timer);
-  }, [slides.length]);
-
-  const navigate = (direction: number) => {
-    setCurrentSlide((prev) => (prev + direction + slides.length) % slides.length);
-  };
+  }, [navigate]);
 
   return (
     <section className={styles.hero}>
-      <div className={styles.mainSlider}>
+      <div className={styles.slider}>
         <div
-          className={styles.sliderTrack}
+          className={styles.track}
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
-          {slides.map((src, i) => (
-            <div key={i} className={styles.slide}>
-              <img
-                src={src}
-                alt={`Healthcare slide ${i + 1}`}
-                className={styles.heroImage}
-              />
-            </div>
+          {SLIDES.map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt={`Healthcare ${i + 1}`}
+              className={styles.slide}
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
           ))}
         </div>
 
         <button
-          className={`${styles.navButton} ${styles.navButtonPrev}`}
+          className={`${styles.nav} ${styles.prev}`}
           onClick={() => navigate(-1)}
-          aria-label="Previous"
+          aria-label="Previous slide"
         >
           ‹
         </button>
 
         <button
-          className={`${styles.navButton} ${styles.navButtonNext}`}
+          className={`${styles.nav} ${styles.next}`}
           onClick={() => navigate(1)}
-          aria-label="Next"
+          aria-label="Next slide"
         >
           ›
         </button>
 
         <div className={styles.indicators}>
-          {slides.map((_, i) => (
+          {SLIDES.map((_, i) => (
             <button
               key={i}
-              className={`${styles.indicator} ${
-                i === currentSlide ? styles.active : ''
-              }`}
+              className={`${styles.dot} ${i === currentSlide ? styles.active : ''}`}
               onClick={() => setCurrentSlide(i)}
-              aria-label={`Go to slide ${i + 1}`}
+              aria-label={`Slide ${i + 1}`}
             />
           ))}
         </div>
       </div>
 
       <aside className={styles.sidebar}>
-        <div className={styles.servicesCard}>
-          <div className={styles.cardHeader}>
-            <h3 className={styles.cardTitle}>Our Services</h3>
-            <p className={styles.cardSubtitle}>
-              Comprehensive Healthcare Solutions
-            </p>
+        <div className={styles.card}>
+          <div className={styles.header}>
+            <h3 className={styles.title}>Our Services</h3>
+            <p className={styles.subtitle}>Comprehensive Healthcare Solutions</p>
           </div>
 
-          <div className={styles.servicesGrid}>
+          <div className={styles.services}>
             {SERVICES.map((service, i) => {
               const Icon = service.icon;
               return (
-                <div key={i} className={styles.serviceItem}>
-                  <span className={styles.serviceIcon}>
-                    <Icon size={22} strokeWidth={1.8} />
-                  </span>
-                  <div className={styles.serviceText}>
-                    <h4 className={styles.serviceName}>{service.title}</h4>
-                    <p className={styles.serviceDesc}>{service.desc}</p>
+                <div key={i} className={styles.service}>
+                  <Icon size={22} strokeWidth={1.8} className={styles.icon} />
+                  <div>
+                    <h4 className={styles.name}>{service.title}</h4>
+                    <p className={styles.desc}>{service.desc}</p>
                   </div>
                 </div>
               );
@@ -126,13 +121,9 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-        <div className={styles.pharmacyCard}>
-          <div className={styles.pharmacyBadge}>
-            <svg
-              className={styles.badgeIcon}
-              viewBox="0 0 24 24"
-              fill="none"
-            >
+        <div className={styles.pharmacy}>
+          <div className={styles.badge}>
+            <svg viewBox="0 0 24 24" fill="none" className={styles.badgeIcon}>
               <path
                 d="M12 2v20M2 12h20M12 6l4 6-4 6-4-6z"
                 stroke="currentColor"
@@ -141,18 +132,20 @@ const Hero: React.FC = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className={styles.badgeText}>24/7</span>
+            <span>24/7</span>
           </div>
 
-          <div className={styles.pharmacyContent}>
-            <h3 className={styles.pharmacyTitle}>Pharmacy</h3>
-            <p className={styles.pharmacyDesc}>
-              Quality medications & expert guidance
-            </p>
-            <button className={styles.ctaButton}>
-              Visit Pharmacy <span className={styles.arrow}>→</span>
-            </button>
-          </div>
+          <h3 className={styles.pharmacyTitle}>Pharmacy</h3>
+          <p className={styles.pharmacyDesc}>Quality medications & expert guidance</p>
+
+
+          <Link
+            href="/more/new"
+            className={styles.cta}
+          >
+            Visit Pharmacy <span className={styles.arrow}>→</span>
+          </Link>
+
         </div>
       </aside>
     </section>

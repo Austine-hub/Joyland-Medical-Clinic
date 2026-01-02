@@ -3,6 +3,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import styles from './MedicalInfoCarousel.module.css';
+import Link from 'next/link';
+
 
 interface Schedule {
   day: string;
@@ -16,6 +18,7 @@ interface InfoCard {
   buttonText?: string;
   type: 'emergency' | 'timetable' | 'hours';
   hours?: Schedule[];
+  href?: string;          // ✅ added
 }
 
 const cardsData: InfoCard[] = [
@@ -24,14 +27,16 @@ const cardsData: InfoCard[] = [
     title: 'Emergency Case',
     description: 'If you need a doctor urgently outside of medicenter opening hours, call emergency appointment number for emergency service.',
     buttonText: 'READ MORE',
-    type: 'emergency'
+    type: 'emergency',
+    href: '/contact-us',   // ✅ comma fixed
   },
   {
     id: 2,
     title: 'Doctors Timetable',
     description: 'Here at medicenter we have individual doctor\'s lists. Click read more below to see services and current timetable for our doctors.',
     buttonText: 'READ MORE',
-    type: 'timetable'
+    type: 'timetable',
+    href: '/timetable',   // ✅ comma fixed
   },
   {
     id: 3,
@@ -113,12 +118,17 @@ export default function MedicalInfoCarousel() {
             ) : (
               <>
                 <p className={styles.cardDescription}>{card.description}</p>
-                {card.buttonText && (
-                  <button className={styles.readMoreButton}>
-                    {card.buttonText}
-                    <span className={styles.arrow}>→</span>
-                  </button>
-                )}
+                  {card.buttonText && card.href && (
+                    <Link
+                      href={card.href}
+                      className={styles.readMoreButton}
+                      onClick={(e) => e.stopPropagation()} // 🚨 critical
+                    >
+                      {card.buttonText}
+                      <span className={styles.arrow}>→</span>
+                    </Link>
+                  )}
+
               </>
             )}
           </div>

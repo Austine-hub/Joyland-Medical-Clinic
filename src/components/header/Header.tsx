@@ -49,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
           <Link href="/" className={styles.logoLink} aria-label="Marplewood Pharmacy - Home">
             <div className={styles.logo}>
               <span className={styles.logoText}>JOYLAND</span>
-              <span className={styles.logoSubtext}>MEDICAL CLINIC AND  <span className={styles.logoSubtext}>AND </span> 
+              <span className={styles.logoSubtext}>MEDICAL CLINIC <span className={styles.logoSubtext}>AND </span> 
               CHEMISTS
               </span>
               <span className={styles.logoTagline}>Your Health Our Priority</span>

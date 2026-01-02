@@ -27,6 +27,7 @@ interface NavbarProps {
 }
 
 const NAV_ITEMS: NavItem[] = [
+
   {
     label: "Shop By Category",
     key: "category",
@@ -40,6 +41,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Home Healthcare", path: "/categories/home-healthcare" },
     ],
   },
+  
   {
     label: "Shop By Condition",
     key: "condition",
@@ -65,9 +67,10 @@ const NAV_ITEMS: NavItem[] = [
       { label: "MSK", path: "/system/msk" },
     ],
   },
-  { label: "Offers", key: "offers", path: "/offers" },
-  { label: "Dashboard", key: "dashboard", path: "/dashboard" },
- ];
+  { label: "Services", key: "services", path: "/services" },
+
+  { label: "Our Team", key: "team", path: "/team" },
+   ];
 
 export default function Navbar({ isOpen, onClose }: NavbarProps) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);

@@ -1,14 +1,19 @@
 //src/app/page.tsx
 
-import DealsOfTheDay from "@/components/deals/Deals";
-import Hero from "@/components/hero/Hero";
+// src/app/page.tsx
+
 import type { Metadata } from "next";
+
+import Hero from "@/components/hero/Hero";
+import MedicalInfoCarousel from "@/components/medicalInfo/MedicalCarousel";
+import DealsOfTheDay from "@/components/deals/Deals";
+import TodayDeals from "@/components/today/TodayDeals";
 import PopularProducts from "@/components/new/PopularProducts";
 import ProductsGrid from "@/components/new/ProductsGrid";
-import TodayDeals from "@/components/today/TodayDeals";
 import Grid from "@/components/today/Products/Grid1";
-import GetStarted from "@/components/getStarted/GetStarted";
 
+import styles from "./page.module.css";
+import WhyChooseUs from "@/components/whyChooseUs/WhyChooseUs";
 
 export const metadata: Metadata = {
   title: "JOYLAND MEDICAL CLINIC",
@@ -17,55 +22,50 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-slate-900 antialiased">
-      {/* Accessible page heading for screen readers & SEO */}
+    <main className={`${styles.page} ${styles.main}`}>
 
-            {/* Hero */}
-      <section aria-labelledby="hero-heading" className="w-full">
+      {/* Hero – full width */}
+      <section className={`${styles.fullBleed}`}>
         <Hero />
       </section>
 
-
-            {/* GetStarted */}
-      <section aria-labelledby="hero-heading" className="w-full">
-        <GetStarted />
-      </section>
-
-             {/*DealsOfTheDay */}
-      <section aria-labelledby="hero-heading" className="w-full">
-        <DealsOfTheDay/>
-      </section>
-
-            
-            {/* TodayDeals*/}
+      {/* Medical Info Carousel – MUST be full width */}
       <section
-        aria-label="PopularProducts"
-        className="w-full px-4 sm:px-6 lg:px-8 -mt-4"
+        className={`${styles.fullBleed}`}
+        aria-label="Medical information"
       >
-        <TodayDeals/>
+        <MedicalInfoCarousel />
       </section>
 
-           {/* PopularProducts*/}
-      <section
-        aria-label="PopularProducts"
-        className="w-full px-4 sm:px-6 lg:px-8 -mt-4"
-      >
-        <PopularProducts/>
+      {/* Deals of the Day */}
+      <section className={`${styles.fullBleed} ${styles.sectionCompact}`}>
+        <DealsOfTheDay />
       </section>
 
-
-
-        {/*BoxesGrid */}
-      <section aria-labelledby="ProductsGrid" className="w-full">
-        <Grid/>
-      </section>
-      
-
-       {/*ProductsGrid */}
-      <section aria-labelledby="ProductsGrid" className="w-full">
-        <ProductsGrid/>
+      {/* Today Deals */}
+      <section className={`${styles.fullBleed} ${styles.sectionCompact}`}>
+        <TodayDeals />
       </section>
 
+      {/* Popular Products */}
+      <section className={`${styles.fullBleed} ${styles.sectionCompact}`}>
+        <PopularProducts />
+      </section>
+
+      {/* Box Grid */}
+      <section className={`${styles.fullBleed} ${styles.sectionCompact}`}>
+        <Grid />
+      </section>
+
+      {/* Products Grid */}
+      <section className={`${styles.fullBleed} ${styles.section}`}>
+        <ProductsGrid />
+      </section>
+
+      {/* WhyChooseUs */}
+      <section className={`${styles.fullBleed} ${styles.section}`}>
+        <WhyChooseUs/>
+      </section>
     </main>
   );
 }
